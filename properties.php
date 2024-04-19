@@ -21,6 +21,34 @@
   $rioTotalRooms = RIO_BEDROOMS + RIO_BATHROOMS+RIO_LivingRoom+RIO_CarGarage;
 ?>
 
+<?php
+ 
+
+
+  // Define constants
+  define("BEDROOMS", 5);
+  define("BATHROOMS", 4);
+
+  // Define variables
+  $location2 = "London";
+  $priceLondon = "$1.000.000";
+
+
+  // Concatenation
+  $propertyTitle2 = "Forest Hill House";
+  $propertyType2 = "House";
+
+
+  // String functions
+  $upperCaseLocation2 = strtoupper($location2);
+  $propertyTitleLength2 = strlen($propertyTitle2);
+
+  // Arithmetic operators
+  $totalRooms2 = BEDROOMS + BATHROOMS;
+
+ 
+?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -130,6 +158,70 @@
           </div>
         </div>
       </div>
+      <div class="col-lg-4 col-md-6 mb-4">
+         <div class="card" style="width:350px;" id="London">
+            <!-- Card content here -->
+            <div id="imageCarousel2" class="carousel slide" data-ride="carousel2" data-interval="false">
+              <ol class="carousel-indicators">
+                <li data-target="#imageCarousel2" data-slide-to="0" class="active"></li>
+                <li data-target="#imageCarousel2" data-slide-to="1"></li>
+               
+              </ol>
+          
+              <!-- Slides -->
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                <a href="./london.php"> <img src="./Assets/images/l4.jpeg" class="d-block w-100" alt="Property 1" style="object-fit: cover;">
+                </div>
+                <div class="carousel-item">
+                  <img src="./Assets/images/l2.jpeg" class="d-block w-100" alt="Property 2" style="object-fit: cover;"></a>
+                </div>
+                
+              </div>
+          
+              <!-- Controls -->
+              <a class="carousel-control-prev" href="#imageCarousel2" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="carousel-control-next" href="#imageCarousel2" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
+            </div>
+            <div class="card-body">
+            <h5 class="card-title"><?php echo $propertyType2; ?></h5>
+            <p class="card-text"><i><?php echo $propertyTitle2; ?></i></p>
+            <p class="card-text"><b>Location: </b><?php echo $upperCaseLocation2; ?></p>
+            <p class="card-text"><b>Price:</b><mark style="color: #61777f;"><?php echo $priceLondon; ?></mark></p>
+            <p class="card-text"><b>Total Rooms:</b> <?php echo $totalRooms2; ?></p>
+              </p>
+              <div class="additional-info mt-3" style="display: none;" id="pp2">
+                <p>
+                  <b>5</b> Beds<br>
+                  <b>4</b> Baths<br>
+                  <br>
+                  Your perfect spot for summer holiday<br>
+                  Welcome to this adorable home in London.The large Screened in front porch is great for morning coffe.<br>
+                  The kitchen includes a newer gas stainless steel stove,stainless steel counter top&a pantry.<br>
+                  The bathroom is large with glass silding doors.You don't want to miss this diamond in the rough that has been <br>
+                  lovingly maintained by the owner since 1998!
+  
+  
+  
+  
+                </p>
+                <form action="./london.php" method="post">
+
+    
+                <button type="submit" style="border-radius:5px; color:green">Book it now</button>
+                </form>
+                <br>
+              </div>
+              <a href="#" style="background-color: darkgray;" style="background-color: darkgray;" class="btn btn-success view-details"id="p2"><abbr title="More details" >View Details</abbr></a>
+            </div>
+          </div>
+        </div>
     </div>
   </div>
 </body>
