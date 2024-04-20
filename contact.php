@@ -1,4 +1,5 @@
 <?php
+session_start();
  $name = $email = $message =$success= "";
  $errors = array(
      'name' => '',
@@ -84,8 +85,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $errors = FormValidator::validateForm($formData);
 
   if (empty(array_filter($errors))) {
-      
-      $success = "Message sent successfully!";
+    $name = $formData['name'];
+    $_SESSION['name'] = $name;
+      $success = "Dear ". $_SESSION['name'] .",<br>Message was sent successfully!";
   }
 }
 ?>
