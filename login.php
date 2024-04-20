@@ -5,108 +5,71 @@ function error($msg){
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $login_username = $_POST['username'];
+    $login_email = $_POST['email']; 
     $login_password = $_POST['password'];
     
-    
-    $stored_username = isset($_COOKIE['username']) ? $_COOKIE['username'] : null;
+    $stored_email = isset($_COOKIE['email']) ? urldecode($_COOKIE['email']) : null; 
     $stored_password = isset($_COOKIE['password']) ? $_COOKIE['password'] : null;
     
-    
-    if ($login_username === $stored_username && $login_password === $stored_password) {
-       
-        header("Location: index.php");
+    if ($login_email === $stored_email && password_verify($login_password, $stored_password)) {
+        header("Location: home.php");
         exit;
     } else {
-       
-        error("Incorrect username or password.");
+        error("Incorrect email or password.");
     }
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .container {
-            width: 300px;
-            padding: 20px;
-            border-radius: 5px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h2 {
-            margin-top: 0;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        input[type="text"],
-        input[type="password"] {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-            box-sizing: border-box;
-        }
-        input[type="submit"] {
-            width: 100%;
-            padding: 10px;
-            border: none;
-            border-radius: 3px;
-            background-color: #007bff;
-            color: #fff;
-            cursor: pointer;
-        }
-        input[type="submit"]:hover {
-            background-color: #0056b3;
-        }
-        p.error {
-            color: red;
-            text-align: center;
-            margin-top: 10px;
-        }
-    </style>
+    <title>Log In Form</title>
+
 </head>
+
 <body>
+  <div class="background-container"></div>
+  <div class="button-container"></div>
 
-<div class="container">
-    <h2>Login</h2>
-    <?php
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-      
-        if (isset($login_error)) {
-            echo '<p class="error">' . $login_error . '</p>';
-        }
-    }
-    ?>
-    <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
-
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-
-        <input type="submit" value="Login">
-    </form>
-</div>
-
+    <div class="wrapper login">
+        <div class="container">
+            <div class="col-left">
+                <div class="login-text">
+                    <h2>Welcome!</h2>
+                    <p>Get exclusive access to 
+                    <br>  Metropol Real Estate <br><strong>For Free!</strong></p>
+                </div>
+            </div>
+            <div class="col-right">
+                <div class="login-form">
+                    <br>
+                    <br>
+                    <h2>Log In</h2>
+                    <?php
+                    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                      
+                        if (isset($login_error)) {
+                            echo '<p class="error">' . $login_error . '</p>';
+                        }
+                    }
+                    ?>
+                    <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
+                        <label for="Email">Email:</label>
+                      <input type="email" id="email" name="email" required>
+              
+                      <label for="password">Password:</label>
+                      <input type="password" id="password" name="password" required>
+                      <p> <input type="submit" value="Log In"> </p>                 
+                       </form>
+                  
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>
