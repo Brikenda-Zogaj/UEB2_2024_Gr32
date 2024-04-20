@@ -1,95 +1,160 @@
 <?php
 session_start();
- $name = $email = $message =$success= "";
- $errors = array(
-     'name' => '',
-     'email' => '',
-     'message' => ''
- );
- class FormValidator {
-  
+$name = $email = $message =$success= "";
+$errors = array(
+    'name' => '',
+    'email' => '',
+    'message' => ''
+);
+
+class Validator {
   const name_pattern = "/^[a-zA-Z-' ]*$/";
   const email_pattern = '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/';
-  const max_length = 1600;
-
   
-  public static function isValidName(string $name): bool|string {
+    protected function isValidName(string $name): bool|string {
       if (empty($name)) {
-          return "Name is required";
-      } elseif (!preg_match(self::name_pattern, $name)) {
-          return "Name should contain only letters and whitespaces";
-      }
-      return true;
-  }
+        return "Name is required";
+    } elseif (!preg_match(self::name_pattern, $name)) {
+        return "Name should contain only letters and whitespaces";
+    }
+    return true;
+    }
 
-  public static function isValidEmail(string $email): bool|string {
+    protected function isValidEmail(string $email): bool|string {
       if (empty($email)) {
-          return "Email is required";
-      } elseif (!preg_match(self::email_pattern, $email)) {
-          return "Invalid format of email";
-      }
-      return true;
-  }
-  
-   public static function isValidMessage(string $message, int $max_length = self::max_length): bool|string {
-    $message = trim($message);
-    if (empty($message)) {
-      return "Message is required";
-  } 
-  
-  $length = strlen($message);
-  $chars_xtra=$length-$max_length;
-  if ($length > $max_length) {
-      return "Message should not exceed " . $max_length . " characters.You have ".$chars_xtra ." extra chars";
-  }
-  
-  return true;
+        return "Email is required";
+    } elseif (!preg_match(self::email_pattern, $email)) {
+        return "Invalid format of email";
+    }
+    return true;
+    }
+
+    protected function isValidMessage(string $message): bool|string {
+      $message = trim($message);
+      if (empty($message)) {
+        return "Message is required";
+    } 
+    $max_length=1600;
+    $length = strlen($message);
+    $chars_xtra=$length-$max_length;
+    if ($length > $max_length) {
+        return "Message should not exceed " . $max_length . " characters.You have ".$chars_xtra ." extra chars";
+    }
+    
+    return true;
+    }
 }
 
-  public static function validateForm(array $formData): array {
+class FormValidator extends Validator {
+    private string $name;
+    private string $email;
+    private string $message;
+    private string $success;
+    private array $errors;
+
+    public function __construct() {
+        $this->name = "";
+        $this->email = "";
+        $this->message = "";
+        $this->success = "";
+        $this->errors = array(
+            'name' => '',
+            'email' => '',
+            'message' => ''
+        );
+    }
+
+    public function getName(): string {
+        return $this->name;
+    }
+
+    public function setName(string $name): void {
+        $this->name = $name;
+    }
+
+    public function getEmail(): string {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): void {
+        $this->email = $email;
+    }
+
+    public function getMessage(): string {
+        return $this->message;
+    }
+
+    public function setMessage(string $message): void {
+        $this->message = $message;
+    }
+
+    public function getSuccess(): string {
+        return $this->success;
+    }
+
+    public function setSuccess(string $success): void {
+        $this->success = $success;
+    }
+
+    public function getErrors(): array {
+        return $this->errors;
+    }
+
+    public function setErrors(array $errors): void {
+        $this->errors = $errors;
+    }
+
+    public function validateForm(array $formData): array {
       $errors = array(
           'name' => '',
           'email' => '',
           'message' => ''
       );
-         // name error
-    if (isset($formData['name'])) {
-      $nameValidation = self::isValidName($formData['name']);
-      if ($nameValidation !== true) {
-          $errors['name'] = $nameValidation;
-      }
-  } 
-  // email error
-  if (isset($formData['email'])) {
-      $emailValidation = self::isValidEmail($formData['email']);
-      if ($emailValidation !== true) {
-          $errors['email'] = $emailValidation;
-      }
-  } 
-  // message error 
-  if (isset($formData['message'])) {
-      $messageValidation = self::isValidMessage($formData['message']);
-      if ($messageValidation !== true) {
-          $errors['message'] = $messageValidation;
-      }
-  } 
-
-  return $errors;
-}
-}
-
-//use of formValidator for when submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
   
-  $formData = $_POST;
-  $errors = FormValidator::validateForm($formData);
-
-  if (empty(array_filter($errors))) {
-    $name = $formData['name'];
-    $_SESSION['name'] = $name;
-      $success = "Dear ". $_SESSION['name'] .",<br>Message was sent successfully!";
+      if (isset($formData['name'])) {
+          $nameValidation = $this->isValidName($formData['name']);
+          if ($nameValidation !== true) {
+              $errors['name'] = $nameValidation;
+          }
+      } 
+      // email error
+      if (isset($formData['email'])) {
+          $emailValidation = $this->isValidEmail($formData['email']);
+          if ($emailValidation !== true) {
+              $errors['email'] = $emailValidation;
+          }
+      } 
+      // message error 
+      if (isset($formData['message'])) {
+          $messageValidation = $this->isValidMessage($formData['message']);
+          if ($messageValidation !== true) {
+              $errors['message'] = $messageValidation;
+          }
+      } 
+  
+      return $errors;
   }
-}
+  
+    }
+
+    $formValidator = new FormValidator();
+
+    //use of formValidator for when submitted
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+      // Initialize form data
+      $formData = $_POST;
+      $errors = $formValidator->validateForm($formData);
+    
+      // Check if 'name' key exists in $_POST array before accessing it
+     
+    
+      if (empty(array_filter($errors))) {
+          $name = $formData['name'];
+          $_SESSION['name'] = $name;
+          $success = "Dear " . $_SESSION['name'] . ",<br>Message was sent successfully!";
+          $name="";
+      }
+    }
 ?>
 
 <!DOCTYPE html>
