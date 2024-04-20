@@ -1,3 +1,15 @@
+
+<?php
+// Check if a color is submitted via the form
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['background_color'])) {
+    // Set a cookie with the selected color
+    setcookie("background_color", $_POST['background_color'], time() + (86400 * 30), "/"); // 30 days expiration
+}
+
+// Set default background color if cookie is not set
+$backgroundColor = isset($_COOKIE['background_color']) ? $_COOKIE['background_color'] : 'white';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +23,7 @@
     
     
    </head>
-<body style="background: #c9d7ddb1;">
+<body style="background:<?php echo $backgroundColor; ?>;">
 <nav id="navbar" class="navbar">
         <div class="nav-logo">
           <a href="./index.php">  <img src="./Assets/logo5.png" alt="Logo"></a>
@@ -45,7 +57,7 @@
               <button type="submit">Play</button>
               </form>
               <?php
-              if ($_SERVER["REQUEST_METHOD"] == "POST") {
+              if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['audio'])) {
               $audio = $_POST['audio'];
               if (!empty($audio)) {
               echo "<audio controls autoplay><source src='$audio' type='audio/mpeg'>Your browser does not support the audio element.</audio>";
@@ -54,6 +66,18 @@
                      }
               }
               ?>
+              <br>
+                   
+        <form method="post">
+        <label for="background_color">Select Background Color:</label>
+        <select id="background_color" name="background_color">
+            <option value="#d4afb9">Baby Pink</option>
+            <option value="#d1cfe2">Baby Violet</option>
+            <option value="#7ec4cf">baby Blue</option>
+            <!-- Add more color options as needed -->
+        </select>
+        <button type="submit">Apply</button>
+    </form>
               </div>
        </body>
 </html>
