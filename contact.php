@@ -1,4 +1,94 @@
+<?php
+ $name = $email = $message =$success= "";
+ $errors = array(
+     'name' => '',
+     'email' => '',
+     'message' => ''
+ );
+ class FormValidator {
+  
+  const name_pattern = "/^[a-zA-Z-' ]*$/";
+  const email_pattern = '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/';
+  const max_length = 1600;
 
+  
+  public static function isValidName(string $name): bool|string {
+      if (empty($name)) {
+          return "Name is required";
+      } elseif (!preg_match(self::name_pattern, $name)) {
+          return "Name should contain only letters and whitespaces";
+      }
+      return true;
+  }
+
+  public static function isValidEmail(string $email): bool|string {
+      if (empty($email)) {
+          return "Email is required";
+      } elseif (!preg_match(self::email_pattern, $email)) {
+          return "Invalid format of email";
+      }
+      return true;
+  }
+  
+   public static function isValidMessage(string $message, int $max_length = self::max_length): bool|string {
+    $message = trim($message);
+    if (empty($message)) {
+      return "Message is required";
+  } 
+  
+  $length = strlen($message);
+  $chars_xtra=$length-$max_length;
+  if ($length > $max_length) {
+      return "Message should not exceed " . $max_length . " characters.You have ".$chars_xtra ." extra chars";
+  }
+  
+  return true;
+}
+
+  public static function validateForm(array $formData): array {
+      $errors = array(
+          'name' => '',
+          'email' => '',
+          'message' => ''
+      );
+         // name error
+    if (isset($formData['name'])) {
+      $nameValidation = self::isValidName($formData['name']);
+      if ($nameValidation !== true) {
+          $errors['name'] = $nameValidation;
+      }
+  } 
+  // email error
+  if (isset($formData['email'])) {
+      $emailValidation = self::isValidEmail($formData['email']);
+      if ($emailValidation !== true) {
+          $errors['email'] = $emailValidation;
+      }
+  } 
+  // message error 
+  if (isset($formData['message'])) {
+      $messageValidation = self::isValidMessage($formData['message']);
+      if ($messageValidation !== true) {
+          $errors['message'] = $messageValidation;
+      }
+  } 
+
+  return $errors;
+}
+}
+
+//use of formValidator for when submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  
+  $formData = $_POST;
+  $errors = FormValidator::validateForm($formData);
+
+  if (empty(array_filter($errors))) {
+      
+      $success = "Message sent successfully!";
+  }
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -38,27 +128,27 @@
 <div class="row py-5 g-3">
 <div class="col-md-6 first_col">
   <h1 class="text-center mt-3">Contact Us</h1>
-<form class="p-4 mt-5" id="myForm" method="post" action="">
+<form class="p-4 mt-5" id="myForm" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 
   <div class="mb-3">
     <label for="name" class="form-label" >Enter your name</label>
     <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" value="" >
-    <small class="error"></small>
+    <small class="error"><?php echo $errors['name'];?></small>
   </div>
   <div class="mb-3">
     <label for="email" class="form-label">Email address:</label>
     <input type="text" name="email" class="form-control" id="email" placeholder="Your email" value="" >
-    <small class="error"> </small>
+    <small class="error"><?php echo $errors['email'];?></small>
 
   </div>
   <div class="mb-3">
     <label for="message" class="form-label">Enter any message</label>
     <textarea class="form-control" id="message" rows="3" name="message" value=""></textarea>
-    <small class="error"></small>
+    <small class="error"><?php echo $errors['message'];?></small>
   </div>
   <div class="mb-3">
     <input type="submit" name="submit" value="Send message" id="send_but">
-    <p id="success"></p>
+    <p id="success"><?php echo $success; ?></p>
 
   </div>
 </form>
