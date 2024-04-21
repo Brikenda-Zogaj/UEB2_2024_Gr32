@@ -1,4 +1,10 @@
+<?php
+// Lista  pa sortim
+$locations = array("Rio De Janeiro", "Tokyo", "London","New York","Italy","Marbella");
 
+// Sortimi i opsioneve 
+asort($locations);
+?>
 
 <?php 
 session_start();
@@ -47,9 +53,6 @@ if ($_SERVER["REQUEST_METHOD"]=="POST"){
             <a href="./about.php">About Us</a>
             <a href="./contact.php">Contact</a>
             <a href="./faqs.php">
-            <img src="./Assets/faqss.webp" alt="Log In" style="width: 30px; height: 30px; position:relative; top: 5px; right: 5px;">
-        </a>
-        <a href="./login.php">
             <?php
             //kodi per me ndrru login logoja ne index
 if (isset($_SESSION['login']) && $_SESSION['login'] == 'true') {
@@ -89,9 +92,11 @@ $_SESSION['Visitors']=1;
                 <form action="./index.php" method="post" id="searchForm">
                     <input type="text" id="searchInput" list="locationList" placeholder="Location" name="searchInput">
                     <datalist id="locationList">
-                        <option value="Rio De Janeiro">
-                        <option value="Tokyo">
-                        <option value="London">
+                        
+                    <?php foreach ($locations as $location): ?>
+        <option value="<?php echo $location; ?>">
+    <?php endforeach; ?>
+                        
                     </datalist>
                     <output name="result" for="searchInput"></output>
                     <button class="location-button" type="submit">Search</button>
@@ -129,7 +134,7 @@ $_SESSION['Visitors']=1;
                      <div class="property-info">
                          <h3>Elegant houses</h3>
                          <p>Modern houses with a view of the beach.</p>
-                         <a href="#contact" class="btn btn-secondary">Contact Us</a>
+                         <a href="contact.php" class="btn btn-secondary">Contact Us</a>
                      </div>
                  </div>
                  <div class="property-item">
@@ -137,7 +142,7 @@ $_SESSION['Visitors']=1;
                      <div class="property-info">
                          <h3>Appartments</h3>
                          <p>Discover urban living at its finest apartments</p>
-                         <a href="#contact" class="btn btn-secondary">Contact Us</a>
+                         <a href="contact.php" class="btn btn-secondary">Contact Us</a>
                      </div>
                  </div>
                  <div class="property-item">
@@ -145,7 +150,7 @@ $_SESSION['Visitors']=1;
                      <div class="property-info">
                          <h3>Village house</h3>
                          <p>Excape to the countryside living in village houses</p>
-                         <a href="#contact" class="btn btn-secondary">Contact Us</a>
+                         <a href="contact.php" class="btn btn-secondary">Contact Us</a>
                      </div>
                  </div>
         </div>
