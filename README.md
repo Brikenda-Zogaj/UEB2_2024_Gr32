@@ -6,7 +6,8 @@ Metropol eshte nje faqe interneti e real estate qe eshte zhvilluar  me HTML5, CS
 Metropol Real Estate është një platformë e specializuar në shitjen, qiranë dhe menaxhimin e pronave të paluajtshme. Ne ofrojmë përvojë cilësore dhe personalizuar për klientët tanë, duke i ndihmuar ata të gjejnë dhe të blejnë ose të marin me  qira një pronë sipas nevojave dhe preferencave të tyre. 
 Metropol Real Estate synon të jetë partneri juaj i besueshëm në kërkimin dhe menaxhimin e prones së paluajtshme.
 
-## Dokumentimi i Projektit 
+## Projekti 
+[MetropolRealEstate](http://localhost/UEB2_2024_Gr32/UEB2_2024_Gr32/index.php)
 
 ## Studentet të cilet kanë punuar në këtë projekt
 - Blerina Balaj [@BlerinaBalaj](https://github.com/BlerinaBalaj) 

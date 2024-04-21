@@ -168,7 +168,7 @@ class FormValidator extends Validator {
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   
-  <link href="Css\contact.css" rel="stylesheet">
+  <link href="./Css/contact.css" rel="stylesheet">
  
   
 </head>
@@ -180,14 +180,14 @@ class FormValidator extends Validator {
            <a href="./index.php"> <img src="./Assets/logo5.png" alt="Logo"></a>
         </div>
         <div class="nav-links right" id="navLinks">
-            <!-- <a href="../Pages/home.html">Home</a> -->
+          
             <a href="./properties.php">Properties</a>
             <a href="./blog.php">Blog</a>
             <a href="./about.php">About Us</a>
             <a href="./contact.php">Contact</a>
             <a href="./login.php">
-                <button type="submit">Log In</button>
-            </a>
+            <img src="./Assets/loged.webp" alt="Log In" style="width: 30px; height: 30px; position:relative; top: 0px; right: 5px;">
+        </a>
         </div>
     </nav>
     <?php 
