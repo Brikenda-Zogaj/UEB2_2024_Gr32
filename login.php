@@ -1,4 +1,5 @@
 <?php
+session_start();
 function error($msg){
     echo '<p style="color:red;">'.$msg.'</p>';
 }
