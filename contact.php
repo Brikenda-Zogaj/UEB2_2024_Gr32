@@ -190,6 +190,19 @@ class FormValidator extends Validator {
             </a>
         </div>
     </nav>
+    <?php 
+function displayVisitorCount() {
+    if(isset($_SESSION['Visitors'])){
+        $_SESSION['Visitors']++;
+    } else {
+        $_SESSION['Visitors'] = 1;
+    }
+
+    echo "<p style='color:#90EE90;  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;'><i><b>The number of visitors :".$_SESSION['Visitors']."</b></i></p>";
+}
+
+displayVisitorCount();
+?>
   <div class="container">
     <p id="currentDate">Current Date:</p>
 <div class="row py-5 g-3">
