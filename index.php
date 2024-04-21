@@ -53,6 +53,8 @@ if ($_SERVER["REQUEST_METHOD"]=="POST"){
             <a href="./about.php">About Us</a>
             <a href="./contact.php">Contact</a>
             <a href="./faqs.php">
+            <img src="./Assets/faqss.webp" alt="Log In" style="width: 30px; height: 30px; position:relative; top: 5px; right: 5px;">
+            </a>
             <?php
             //kodi per me ndrru login logoja ne index
 if (isset($_SESSION['login']) && $_SESSION['login'] == 'true') {

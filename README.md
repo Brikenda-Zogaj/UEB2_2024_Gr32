@@ -18,7 +18,7 @@ Metropol Real Estate synon të jetë partneri juaj i besueshëm në kërkimin dh
 Programimi në WEB2 
 
 ## Profesoresha e lëndes
--Dhurata Hyseni
+- Dhurata Hyseni
 
 ## Asistentja e lëndes
 - Daline Vranovci
@@ -27,6 +27,5 @@ Programimi në WEB2
 
 Per zhvillimin e keti website krahas materialit qe është ofruar ne ligjerata dhe ushtrime jane perdorur edhe materiale nga këto platforma:
 
-- [Mozilla MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web),
 - [W3Schools](https://www.w3schools.com/),
 - [Codepen](https://codepen.io).
