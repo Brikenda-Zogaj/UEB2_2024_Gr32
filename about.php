@@ -178,8 +178,14 @@ echo '<meta http-equiv="refresh" content="3600">';
             <a href="./about.php">About Us</a>
             <a href="./contact.php">Contact</a>
             <a href="./login.php">
-            <img src="./Assets/loged.webp" alt="Log In" style="width: 30px; height: 30px; position:relative; top: 0px; right: 5px;">
-        </a>
+            <?php
+            //kodi per me ndrru login logoja ne index
+                     if (isset($_SESSION['login']) && $_SESSION['login'] == 'true') {
+                     echo '<img src="./Assets/loged.webp" alt="Log In" style="width: 30px; height: 30px; position:relative; top: 5px; right: 5px;">';
+                     } else {
+                     echo '<img src="./Assets/signup.png" alt="Log In" style="width: 30px; height: 30px; position:relative; top: 5px; right: 5px;">';
+                     }
+                     ?>
         </div>
     </nav>
 
