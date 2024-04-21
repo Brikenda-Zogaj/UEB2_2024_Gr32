@@ -49,6 +49,94 @@
  
 ?>
 
+<?php
+  // Define constants
+  define("TOKYO_BEDROOMS", 4);
+  define("TOKYO_BATHROOMS", 3);
+  define("TOKYO_LivingRoom", 2);
+  define("TOKYO_CarGarage", 1);
+
+  // Define variables
+  $tokyoLocation = "Tokyo";
+  $tokyoPrice = "$980.000";
+
+  // Concatenation
+  $tokyoPropertyTitle = "Luxury House";
+  $tokyoPropertyType = "House";
+
+  // String functions
+  $tokyoUpperCaseLocation = strtoupper($tokyoLocation);
+  $tokyoPropertyTitleLength = strlen($tokyoPropertyTitle);
+
+  // Arithmetic operators
+  $tokyoTotalRooms = TOKYO_BEDROOMS + TOKYO_BATHROOMS+TOKYO_LivingRoom+TOKYO_CarGarage;
+?>
+<?php
+  // Define constants
+  define("NY_BEDROOMS", 2);
+  define("NY_BATHROOMS", 2);
+  define("NY_LivingRoom", 1);
+ 
+
+  // Define variables
+  $nyLocation = "New York";
+  $nyPrice = "$1.903.000";
+
+  // Concatenation
+  $nyPropertyTitle = "Apartment";
+  $nyPropertyType = "Apartment";
+
+  // String functions
+  $nyUpperCaseLocation = strtoupper($nyLocation);
+  $nyPropertyTitleLength = strlen($nyPropertyTitle);
+
+  // Arithmetic operators
+  $nyTotalRooms = NY_BEDROOMS + NY_BATHROOMS+NY_LivingRoom;
+?>
+<?php
+  // Define constants
+  define("ITALY_BEDROOMS", 4);
+  define("ITALY_BATHROOMS", 2);
+
+  // Define variables
+  $italyLocation = "Italy";
+  $italyPrice = "$650.000";
+
+  // Concatenation
+  $italyPropertyTitle = "House with Beachfront";
+  $italyPropertyType = "House";
+
+  // String functions
+  $italyUpperCaseLocation = strtoupper($italyLocation);
+  $italyPropertyTitleLength = strlen($italyPropertyTitle);
+
+  // Arithmetic operators
+  $italyTotalRooms = ITALY_BEDROOMS + ITALY_BATHROOMS;
+?>
+
+<?php
+  // Define constants
+  define("MARBELLA_BEDROOMS", 4);
+  define("MARBELLA_BATHROOMS", 2);
+  define("MARBELLA_LivingRoom", 1);
+  define("MARBELLA_CarGarage", 1);
+
+  // Define variables
+  $marbellaLocation = "Marbella";
+  $marbellaPrice = "$890.000";
+
+  // Concatenation
+  $marbellaPropertyTitle = "Penthouse";
+  $marbellaPropertyType = "Penthouse";
+
+  // String functions
+  $marbellaUpperCaseLocation = strtoupper($marbellaLocation);
+  $marbellaPropertyTitleLength = strlen($marbellaPropertyTitle);
+
+  // Arithmetic operators
+  $marbellaTotalRooms = MARBELLA_BEDROOMS + MARBELLA_BATHROOMS+MARBELLA_LivingRoom+MARBELLA_CarGarage;
+?>
+
 
 <!DOCTYPE html>
 <html lang="en">
