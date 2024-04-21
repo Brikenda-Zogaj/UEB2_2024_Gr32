@@ -173,7 +173,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'clear_booking') {
         
         <input type="submit" name="submit_booking" value="Submit Booking">
         <?php if(isset($_SESSION['error_message'])): ?><br>
-    <small><?php echo $_SESSION['error_message']; ?></small><br>
+    <small><?php var_dump($_SESSION['error_message']); ?></small><br>
     <button><a href="login.php">Log In</a></button>
 
 <?php endif; ?>
