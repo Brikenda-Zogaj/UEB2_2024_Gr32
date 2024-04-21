@@ -3,9 +3,10 @@
 <?php
 // Start session
 session_start();
-
+$_SESSION['redirect_from'] = $_SERVER['REQUEST_URI'];
 // If submit booking form is clicked
 if (isset($_POST['submit_booking'])) {
+    if (isset($_SESSION['login']) && $_SESSION['login'] == 'true')  {
     // Store booking data in session
     $_SESSION['booking'] = array(
         'name' => $_POST['name'],
@@ -17,8 +18,16 @@ if (isset($_POST['submit_booking'])) {
 
     // Set success message in session
     $_SESSION['success_message'] = "Booking has been made successfully!";
+} else {
+    // If user is not logged in, set error message
+    $_SESSION['error_message'] = "You need to be logged in to make a booking.";
+}
 }
 
+// Reset error message if form is not submitted
+if (!isset($_POST['submit_booking'])) {
+unset($_SESSION['error_message']);
+}
 // If clear booking action is triggered
 if (isset($_GET['action']) && $_GET['action'] == 'clear_booking') {
     // Remove booking data from session
@@ -156,7 +165,13 @@ if (isset($_GET['action']) && $_GET['action'] == 'clear_booking') {
 
         
         <input type="submit" name="submit_booking" value="Submit Booking">
+        <?php if(isset($_SESSION['error_message'])): ?><br>
+    <small><?php echo $_SESSION['error_message']; ?></small><br>
+    <button><a href="login.php">Log In</a></button>
+
+<?php endif; ?>
     </form>
+
     </div>
     <!-- Display Booking Details -->
     <?php if (isset($_SESSION['booking'])) : ?>
