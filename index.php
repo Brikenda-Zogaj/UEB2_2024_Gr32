@@ -1,4 +1,10 @@
+<?php
+// Lista  pa sortim
+$locations = array("Rio De Janeiro", "Tokyo", "London","New York","Italy","Marbella");
 
+// Sortimi i opsioneve 
+asort($locations);
+?>
 
 <?php 
 session_start();
@@ -89,9 +95,11 @@ $_SESSION['Visitors']=1;
                 <form action="./index.php" method="post" id="searchForm">
                     <input type="text" id="searchInput" list="locationList" placeholder="Location" name="searchInput">
                     <datalist id="locationList">
-                        <option value="Rio De Janeiro">
-                        <option value="Tokyo">
-                        <option value="London">
+                        
+                    <?php foreach ($locations as $location): ?>
+        <option value="<?php echo $location; ?>">
+    <?php endforeach; ?>
+                        
                     </datalist>
                     <output name="result" for="searchInput"></output>
                     <button class="location-button" type="submit">Search</button>
