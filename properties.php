@@ -1,3 +1,6 @@
+<?php 
+session_start();?>
+
 <?php
   // Define constants
   define("RIO_BEDROOMS", 3);
@@ -162,11 +165,26 @@
           <a href="./blog.PHP">Blog</a>
           <a href="./Pages/about.html">About Us</a>
           <a href="./Pages/contact.html">Contact</a>
-          <a href="./Pages/login.html">
-              <button type="submit">Log In</button>
-          </a>
+          <a href="./login.php">
+            <?php
+            //kodi per me ndrru login logoja ne index
+            if (isset($_SESSION['login']) && $_SESSION['login'] == 'true') {
+                echo '<img src="./Assets/loged.webp" alt="Log In" style="width: 30px; height: 30px; position:relative; top: 5px; right: 5px;">';
+            } else {
+                echo '<img src="./Assets/signup.png" alt="Log In" style="width: 30px; height: 30px; position:relative; top: 5px; right: 5px;">';
+            }
+            ?>
+        </a>
       </div>
   </nav>
+      <?php
+        if(isset($_SESSION['Visitors'])){// Session -numri i vizitave te nje faqeje
+            $_SESSION['Visitors']++;
+      }
+      else
+      $_SESSION['Visitors']=1;
+
+      ?>
 
   <div class="container mt-4">
     <h1>Welcome to Luxury Properties</h1>
@@ -310,7 +328,350 @@
             </div>
           </div>
         </div>
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card" style="width:350;" id="Tokyo">
+              <!-- Card content here -->
+              <div id="imageCarousel3" class="carousel slide" data-ride="carousel3" data-interval="false">
+                <ol class="carousel-indicators">
+                  <li data-target="#imageCarousel3" data-slide-to="0" class="active"></li>
+                  <li data-target="#imageCarousel3" data-slide-to="1"></li>
+                 
+                </ol>
+            
+                <!-- Slides -->
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <img src="./Assets/images/tokyo.jpeg" class="d-block w-100" alt="Property 1" style="object-fit: cover;">
+                  </div>
+                  <div class="carousel-item">
+                    <img src="./Assets/images/tokyo2.jpeg" class="d-block w-100" alt="Property 2" style="object-fit: cover;">
+                  </div>
+                  
+                </div>
+            
+                <!-- Controls -->
+                <a class="carousel-control-prev" href="#imageCarousel3" role="button" data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#imageCarousel3" role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </div>
+              <div class="card-body">
+              <h5 class="card-title"><?php echo $tokyoPropertyType; ?></h5>
+            <p class="card-text"><i><?php echo $tokyoPropertyTitle; ?></i></p>
+            <p class="card-text"><b>Location: </b><?php echo $tokyoUpperCaseLocation; ?></p>
+            <p class="card-text"><b>Price:</b><mark style="color: #61777f;"><?php echo $tokyoPrice; ?></mark></p>
+            <p class="card-text"><b>Total Rooms:</b> <?php echo $tokyoTotalRooms; ?></p>
+                <div class="additional-info mt-3" style="display: none;" id="pp3">
+                  <p>
+                    <b>4</b> Beds<br>
+                    <b>3</b> Baths<br>
+                    <b>2</b> Living Room <br>
+                    <b>1</b> Car Garage
+                    <br>
+                    This well maintained proerty features an open floor plan with 4 bedrooms, 3 baths and a spacious landscaped backyard that is perfect for entertainind and includes fire pit and covered dining area.The home has remodeled in 2016.
+                
+                  </p>
+                  <form action="./tokyo.php" method="post">
+
+    
+                    <button type="submit" style="border-radius:5px; color:green">Book it now</button>
+                    </form>
+                    <br>
+                </div>
+                <a href="#" style="background-color: darkgray;" class="btn btn-success view-details"id="p3"><abbr title="More details">View Details</abbr></a>
+              </div>
+            </div>
+            
+      </div>
+      </div>
+      <div class="row hidden" style="display: none;">
+        <!-- Property Cards -->
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="card" style="width:350px" id="NewYork" >
+            <!-- Card content here -->
+            <div id="imageCarousel4" class="carousel slide" data-ride="carousel4" data-interval="false">
+              <ol class="carousel-indicators">
+                <li data-target="#imageCarousel4" data-slide-to="0" class="active"></li>
+                <li data-target="#imageCarousel4" data-slide-to="1"></li>
+               
+              </ol>
+          
+              <!-- Slides -->
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <img src="./Assets/images/n6.jpeg" class="d-block w-100" alt="Property 1" style="object-fit: cover;">
+                </div>
+                <div class="carousel-item">
+                  <img src="./Assets/images/marbella.jpg" class="d-block w-100" alt="Property 2" style="object-fit: cover;">
+                </div>
+                
+              </div>
+          
+              <!-- Controls -->
+              <a class="carousel-control-prev" href="#imageCarousel4" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="carousel-control-next" href="#imageCarousel4" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
+            </div>
+            <div class="card-body">
+                 
+            <h5 class="card-title"><?php echo $nyPropertyType; ?></h5>
+            <p class="card-text"><i><?php echo $nyPropertyTitle; ?></i></p>
+            <p class="card-text"><b>Location: </b><?php echo $nyUpperCaseLocation; ?></p>
+            <p class="card-text"><b>Price:</b><mark style="color: #61777f;"><?php echo $nyPrice; ?></mark></p>
+            <p class="card-text"><b>Total Rooms:</b> <?php echo $nyTotalRooms; ?></p>
+              <div class="additional-info mt-3" style="display: none;" id="pp4">
+                <p>
+                  <b>2</b> Beds<br>
+                  <b>2</b> Baths<br>
+                  <b>1</b>Living Room
+                  <br>
+                  City that never sleeps
+                  <br>
+                 This can be your best choice for someone who wants urban lifestyle. Enter this open concept to find the kitchen at the heart of the home, flanked by dining and family with a cozy fireplace. A functional mudroom and powder room rounds out this level.<i>Right size,right price</i>
+                </p>
+                <form action="./ny.php" method="post">
+
+    
+                <button type="submit" style="border-radius:5px; color:green">Book it now</button>
+                </form>
+                <br>
+              </div>
+              <a href="#" style="background-color: darkgray;" class="btn btn-success view-details" id="p4"><abbr title="More details">View Details</abbr></a>
+            </div>
+          </div>
+        </div>
+        <!-- Repeat similar structure for more property cards -->
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card" style="width: 350px;" id="Hollywood">
+              <!-- Card content here -->
+              <div id="imageCarousel5" class="carousel slide" data-ride="carousel5" data-interval="false">
+                <ol class="carousel-indicators">
+                  <li data-target="#imageCarousel5" data-slide-to="0" class="active"></li>
+                  <li data-target="#imageCarousel5" data-slide-to="1"></li>
+                 
+                </ol>
+            
+                <!-- Slides -->
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <img src="./Assets/images/italy8.jpg" class="d-block w-100" alt="Property 1" style="object-fit: cover;">
+                  </div>
+                  <div class="carousel-item">
+                    <img src="./Assets/images/italy7.jpeg" class="d-block w-100" alt="Property 2" style="object-fit: cover;">
+                  </div>
+                  
+                </div>
+            
+                <!-- Controls -->
+                <a class="carousel-control-prev" href="#imageCarousel5" role="button" data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#imageCarousel5" role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </div>
+              <div class="card-body">
+              <h5 class="card-title"><?php echo $italyPropertyType; ?></h5>
+            <p class="card-text"><i><?php echo $italyPropertyTitle; ?></i></p>
+            <p class="card-text"><b>Location: </b><?php echo $italyUpperCaseLocation; ?></p>
+            <p class="card-text"><b>Price:</b><mark style="color: #61777f;"><?php echo $italyPrice; ?></mark></p>
+            <p class="card-text"><b>Total Rooms:</b> <?php echo $italyTotalRooms; ?></p>
+                <div class="additional-info mt-3" style="display: none;" id="pp5">
+                <b>4</b> Beds<br>
+                  <b>2</b> Baths<br>
+                  <p>
+                    Live like a celebrity in this stunning.
+                    With a private pool, plenty of natural light, and custom finishes throughout, you’ll feel like you’re living in a movie set.
+                  </p>
+                  
+                  <form action="./italy.php" method="post">
+
+    
+                    <button type="submit" style="border-radius:5px; color:green">Book it now</button>
+                    </form>
+                    <br>
+                </div>
+                <a href="#" style="background-color: darkgray;" class="btn btn-success view-details" id="p5"><abbr title="More details">View Details</abbr></a>
+              </div>
+            </div>
+          </div>
+
+       
+
+
+
+
+
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card" style="width: 350px;" id="Marbella">
+              <!-- Card content here -->
+              <div id="imageCarousel6" class="carousel slide" data-ride="carousel6" data-interval="false">
+                <ol class="carousel-indicators">
+                  <li data-target="#imageCarousel6" data-slide-to="0" class="active"></li>
+                  <li data-target="#imageCarousel6" data-slide-to="1"></li>
+                 
+                </ol>
+            
+                <!-- Slides -->
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <img src="./Assets/images/marbela2.jpg" class="d-block w-100" alt="Property 1" style="object-fit: cover;">
+                  </div>
+                  <div class="carousel-item">
+                    <img src="./Assets/images/marbella5.jpg" class="d-block w-100" alt="Property 2" style="object-fit: cover;">
+                  </div>
+                  
+                </div>
+            
+                <!-- Controls -->
+                <a class="carousel-control-prev" href="#imageCarousel6" role="button" data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#imageCarousel6" role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </div>
+              <div class="card-body">
+           <h5 class="card-title"><?php echo $marbellaPropertyType; ?></h5>
+            <p class="card-text"><i><?php echo $marbellaPropertyTitle; ?></i></p>
+            <p class="card-text"><b>Location: </b><?php echo $marbellaUpperCaseLocation; ?></p>
+            <p class="card-text"><b>Price:</b><mark style="color: #61777f;"><?php echo $marbellaPrice; ?></mark></p>
+            <p class="card-text"><b>Total Rooms:</b> <?php echo $marbellaTotalRooms; ?></p>
+            <div class="additional-info mt-3" style="display: none;" id="pp6">
+                  <p>
+                    <b>4</b> Rooms<br>
+                    <b>2</b> Baths<br>
+                    <b>1</b> Living room
+                    <br>
+                    <b>1</b> Car Garage
+                    <br>
+                    Beautiful holiday house in Marbella, Spain, 180m2 with four bedrooms – two double, one twin and one single. Large and bright living room with sofa bed  with access to terrace, fully equipped kitchen, two bathrooms and garage.
+                  </p>
+                  <form action="./marbella.php" method="post">
+
+    
+                    <button type="submit" style="border-radius:5px; color:green">Book it now</button>
+                    </form>
+                    <br>
+                </div>
+                <a href="#" style="background-color: darkgray;" class="btn btn-success view-details" id="p6"><abbr title="More details">View Details</abbr></a>
+              </div>
+            </div>
+          </div>
+      </div>
+      
+      <button id="toggleButton" class="btn btn-success ">Show more</button>
     </div>
-  </div>
+    
 </body>
+
+    
+    
+    <!-- Bootstrap and JavaScript Bundle -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Include your custom JavaScript file -->
+    <script src="./Js/properties.js"></script>
+    
+        
+    <script>
+
+      document.addEventListener("DOMContentLoaded", function() {
+          var hash = window.location.hash.replace('#', ''); // Remove the hash symbol
+      
+          // Hide all cards initially
+          var cards = document.querySelectorAll('.card');
+          cards.forEach(function(card) {
+              card.style.display = 'none';
+          });
+      
+          if (hash) {
+              // Try to find a card with an id that matches the hash
+              var selectedCard = document.getElementById(hash);
+              if (selectedCard) {
+                  // If found, display only this card
+                  selectedCard.style.display = 'block';
+              } else {
+                  // If no matching card, show a default message or show all cards
+                  // e.g., document.getElementById('defaultMessage').style.display = 'block';
+                  cards.forEach(function(card) {
+                      card.style.display = 'block';
+                  });
+              }
+          } else {
+              // If no hash, show all cards
+              cards.forEach(function(card) {
+                  card.style.display = 'block';
+              });
+          }
+      });
+      </script>
+
+
+
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="container">
+             <div class="footer-logo">
+                
+                 <img src="./Assets/logo5.png" alt="Company Logo" class="footer-logo">
+                
+               
+                 <div class="social-icons">
+                  <a href="https://www.linkedin.com/feed/"><img src="./Assets/linkedin.webp" alt="LinkedIn"></a>
+                  <a href="https://github.com/Brikenda-Zogaj/UEB20_23_Gr7"><img src="./Assets/git.webp" alt="GitHub"></a>
+                  <a href="https://www.facebook.com/"><img src="./Assets/fb.webp" alt="Facebook"></a>
+
+                 </div>
+               </div>
+             
+             <div class="footer-resources">
+                 <h3>Resources</h3>
+                 <ul>
+                   <li><a href="./index.php">Home</a></li>
+                   <li><a href="./properties.php">Properties</a></li>
+                   <li><a href="./about.php">About us</a></li>
+                   <li><a href="./blog.php">Blog</a></li>
+                   <li><a href="./contact.php">Contact Us</a></li>
+               </ul>
+             </div>
+             
+             <div class="footer-lokacioni">
+                 <h3>Lokacioni</h3>
+                 <p><strong>Address:</strong> Malisheve</p>
+       
+                 <p><strong>Phone:</strong> +383 49 685 045</p>
+                 <p>+383 49 892 592</p>
+                 <p><strong>Email:</strong> contact@realE.io</p>
+             </div>
+         </div>
+         <br>
+         &copy; 2024 Metropol Estate. All rights reserved 
+   </footer>
+<script>
+  function toggleMenu() {
+      var navLinks = document.getElementById("navLinks");
+      if (navLinks.style.display === "block") {
+          navLinks.style.display = "none";
+      } else {
+          navLinks.style.display = "block";
+      }
+  }
+  </script>
+
 </html>
