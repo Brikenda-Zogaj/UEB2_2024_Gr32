@@ -257,6 +257,21 @@ $_SESSION['Visitors']=1;
         
         </main>
               <br>
+              <?php
+              $colors = array(
+                "#d4afb9" => "Baby Pink",
+                "#d1cfe2" => "Baby Violet",
+                "#7ec4cf" => "Baby Blue"
+                // Add more color options as needed
+            );
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                // Get the selected background color from the form
+                $selected_color = $_POST["background_color"];
+                
+                // Sort the array based on the color names
+                sort($colors);
+            }
+              ?>
                    
         <form method="post">
         <label for="background_color">Select Background Color:</label>
