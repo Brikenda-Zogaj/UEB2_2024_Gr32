@@ -12,9 +12,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stored_password = isset($_COOKIE['password']) ? $_COOKIE['password'] : null;
     
     if ($login_email === $stored_email && password_verify($login_password, $stored_password)) {
-        header("Location: home.php");
-        exit;
+
+       $_SESSION['login'] = 'true';
+        $redirect_from = isset($_SESSION['redirect_from']) ? $_SESSION['redirect_from'] : 'index.php';
+        unset($_SESSION['redirect_from']);
+        header("Location: $redirect_from");
+            exit;
     } else {
+        $_SESSION['login'] = 'false';
         error("Incorrect email or password.");
     }
 }
