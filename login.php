@@ -270,7 +270,7 @@ body {
                       <input type="password" id="password" name="password" required>
                       <p> <input type="submit" value="Log In"> </p>                 
                        </form>
-                  
+                       <span>Or     </span><a href="./signup.php" class="btn">Sign Up</a>
                 </div>
             </div>
         </div>
