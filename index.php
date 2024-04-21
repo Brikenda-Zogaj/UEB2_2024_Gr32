@@ -137,7 +137,7 @@ $_SESSION['Visitors']=1;
                      <div class="property-info">
                          <h3>Elegant houses</h3>
                          <p>Modern houses with a view of the beach.</p>
-                         <a href="#contact" class="btn btn-secondary">Contact Us</a>
+                         <a href="contact.php" class="btn btn-secondary">Contact Us</a>
                      </div>
                  </div>
                  <div class="property-item">
@@ -145,7 +145,7 @@ $_SESSION['Visitors']=1;
                      <div class="property-info">
                          <h3>Appartments</h3>
                          <p>Discover urban living at its finest apartments</p>
-                         <a href="#contact" class="btn btn-secondary">Contact Us</a>
+                         <a href="contact.php" class="btn btn-secondary">Contact Us</a>
                      </div>
                  </div>
                  <div class="property-item">
@@ -153,7 +153,7 @@ $_SESSION['Visitors']=1;
                      <div class="property-info">
                          <h3>Village house</h3>
                          <p>Excape to the countryside living in village houses</p>
-                         <a href="#contact" class="btn btn-secondary">Contact Us</a>
+                         <a href="contact.php" class="btn btn-secondary">Contact Us</a>
                      </div>
                  </div>
         </div>
