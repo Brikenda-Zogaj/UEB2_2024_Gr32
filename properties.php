@@ -161,10 +161,10 @@ session_start();?>
       </div>
       <div class="nav-links right" id="navLinks">
           <!-- <a href="../Pages/home.html">Home</a> -->
-          <a href="./Pages/properties.html">Properties</a>
+          <a href="./properties.php">Properties</a>
           <a href="./blog.PHP">Blog</a>
-          <a href="./Pages/about.html">About Us</a>
-          <a href="./Pages/contact.html">Contact</a>
+          <a href="./about.php">About Us</a>
+          <a href="./contact.php">Contact</a>
           <a href="./login.php">
             <?php
             //kodi per me ndrru login logoja ne index

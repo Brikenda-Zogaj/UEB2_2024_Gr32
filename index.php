@@ -10,7 +10,6 @@ function log_search($searchTerm) {
            
             $fileSize = filesize($file);
             if ($fileSize > 0) {
-                
                 $currentContent = fread($handle, $fileSize);
             }
             fclose($handle);
@@ -21,7 +20,6 @@ function log_search($searchTerm) {
     }
     $currentContent .= date('Y-m-d H:i:s') . " - " . $searchTerm . "\n";
     
-   
     $handle = fopen($file, 'w');
     if ($handle) {
         fwrite($handle, $currentContent);
