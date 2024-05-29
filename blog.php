@@ -1,15 +1,7 @@
 <?php 
 session_start() ?>
-<?php
-// Check if a color is submitted via the form
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['background_color'])) {
-    // Set a cookie with the selected color
-    setcookie("background_color", $_POST['background_color'], time() + (86400 * 30), "/"); // 30 days expiration
-}
 
-// Set default background color if cookie is not set
-$backgroundColor = isset($_COOKIE['background_color']) ? $_COOKIE['background_color'] : 'white';
-?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -257,21 +249,7 @@ $_SESSION['Visitors']=1;
         
         </main>
               <br>
-              <?php
-              $colors = array(
-                "#d4afb9" => "Baby Pink",
-                "#d1cfe2" => "Baby Violet",
-                "#7ec4cf" => "Baby Blue"
-                // Add more color options as needed
-            );
-            if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                // Get the selected background color from the form
-                $selected_color = $_POST["background_color"];
-                
-                // Sort the array based on the color names
-                sort($colors);
-            }
-              ?>
+             
                    
         <form method="post">
         <label for="background_color">Select Background Color:</label>
@@ -279,9 +257,9 @@ $_SESSION['Visitors']=1;
             <option value="#d4afb9">Baby Pink</option>
             <option value="#d1cfe2">Baby Violet</option>
             <option value="#7ec4cf">baby Blue</option>
-            <!-- Add more color options as needed -->
+          
         </select>
-        <button type="submit">Apply</button>
+       
     </form>
  
 </body>
@@ -323,6 +301,29 @@ $_SESSION['Visitors']=1;
             <br>
             &copy; 2024 Metropol Estate. All rights reserved 
                 </footer>
+                <script>
+                $(document).ready(function() {
+    function updateBackground(color) {
+        $.ajax({
+            url: 'background.php', 
+            type: 'POST', 
+            data: { background_color: color }, 
+            success: function(response) {
+                $('body').css('background-color', color);
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    }
+
+    
+    $('#background_color').change(function() {
+        var selectedColor = $(this).val(); 
+        updateBackground(selectedColor); 
+    });
+});
+</script>
 
      <script src="./Js/blog.js"></script>
 </html>
