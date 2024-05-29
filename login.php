@@ -1,30 +1,3 @@
-<?php
-session_start();
-function error($msg){
-    echo '<p style="color:red;">'.$msg.'</p>';
-}
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-    $login_email = $_POST['email']; 
-    $login_password = $_POST['password'];
-    
-    $stored_email = isset($_COOKIE['email']) ? urldecode($_COOKIE['email']) : null; 
-    $stored_password = isset($_COOKIE['password']) ? $_COOKIE['password'] : null;
-    
-    if ($login_email === $stored_email && password_verify($login_password, $stored_password)) {
-
-       $_SESSION['login'] = 'true';
-        $redirect_from = isset($_SESSION['redirect_from']) ? $_SESSION['redirect_from'] : 'index.php';
-        unset($_SESSION['redirect_from']);
-        header("Location: $redirect_from");
-            exit;
-    } else {
-        $_SESSION['login'] = 'false';
-        error("Incorrect email or password.");
-    }
-}
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -44,6 +17,7 @@ body {
     font-weight: 400;
     color: #666666;
     background: #eaeff4;
+    background-image: url('./Assets/sign.jpeg');
 }
 
 .background-container {
@@ -72,6 +46,7 @@ body {
     width: 800px;
     height:550px;
     display: flex;
+    border-radius: 30px;
     background: #ffffff;
     box-shadow: 0 0 5px #999999;
 }
@@ -237,45 +212,61 @@ body {
     </style>
 </head>
 
+<script>
+        function handleLogin(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', 'ajax_login.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    const response = JSON.parse(xhr.responseText);
+                    if (response.success) {
+                        window.location.href = response.redirect;
+                    } else {
+                        document.getElementById('login-error').innerText = response.message;
+                    }
+                }
+            };
+
+            xhr.send('email=' + encodeURIComponent(email) + '&password=' + encodeURIComponent(password));
+        }
+    </script>
+</head>
 <body>
   <div class="background-container"></div>
   <div class="button-container"></div>
-
-    <div class="wrapper login">
-        <div class="container">
-            <div class="col-left">
-                <div class="login-text">
-                    <h2>Welcome!</h2>
-                    <p>Get exclusive access to 
-                    <br>  Metropol Real Estate <br><strong>For Free!</strong></p>
-                </div>
-            </div>
-            <div class="col-right">
-                <div class="login-form">
-                    <br>
-                    <br>
-                    <h2>Log In</h2>
-                    <?php
-                    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                      
-                        if (isset($login_error)) {
-                            echo '<p class="error">' . $login_error . '</p>';
-                        }
-                    }
-                    ?>
-                    <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
-                        <label for="Email">Email:</label>
-                      <input type="email" id="email" name="email" required>
-              
-                      <label for="password">Password:</label>
-                      <input type="password" id="password" name="password" required>
-                      <p> <input type="submit" value="Log In"> </p>                 
-                       </form>
-                       <span>Or     </span><a href="./signup.php" class="btn">Sign Up</a>
-                </div>
-            </div>
+  <div class="wrapper login">
+    <div class="container">
+      <div class="col-left">
+        <div class="login-text">
+          <h2>Welcome!</h2>
+          <p>Get exclusive access to 
+          <br> Metropol Real Estate <br><strong>For Free!</strong></p>
         </div>
+      </div>
+      <div class="col-right">
+        <div class="login-form">
+          <br>
+          <br>
+          <h2>Log In</h2>
+          <form onsubmit="handleLogin(event)">
+            <label for="Email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <p><input type="submit" value="Log In"></p>
+          </form>
+          <p id="login-error" style="color:red;"></p>
+          <span>Or</span><a href="./signup.php" class="btn">Sign Up</a>
+        </div>
+      </div>
     </div>
+  </div>
 </body>
-
 </html>
