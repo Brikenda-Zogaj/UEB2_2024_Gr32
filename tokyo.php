@@ -1,42 +1,98 @@
-
-
 <?php
-// Start session
+
 session_start();
 $_SESSION['redirect_from'] = $_SERVER['REQUEST_URI'];
-// If submit booking form is clicked
-if (isset($_POST['submit_booking'])) {
-    if (isset($_SESSION['login']) && $_SESSION['login'] == 'true')  {
-    // Store booking data in session
-    $_SESSION['booking'] = array(
-        'name' => $_POST['name'],
-        'email' => $_POST['email'],
-        'date' => $_POST['date'],
-        'time' => $_POST['time'],
+
+
+use PHPMailer\PhpMailer\PHPMailer;
+use PHPMailer\PhpMailer\Exception;
+
+require 'PHPMailer/PHPMailer/src/Exception.php';
+require 'PHPMailer/PHPMailer/src/PhpMailer.php';
+require 'PHPMailer/PHPMailer/src/SMTP.php';
+
+// Funksioni për të dërguar email konfirmimi
+function sendConfirmationEmail($to, $name, $date, $time) {
+    $mail = new PHPMailer(true);
+
+    try {
+        
+        $mail->isSMTP();
+        $mail->Host       = 'smtp.gmail.com'; 
+        $mail->SMTPAuth   = true;
+        $mail->Username   = 'brikendazogajj@gmail.com'; 
+        $mail->Password   = 'ybrxagcxpylatrzw'; 
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port       = 587; 
+
        
-    );
+        $mail->setFrom('brikendazogajj@gmail.com', 'Real Estate Property');
+        $mail->addAddress($to);
 
-    // Set success message in session
-    $_SESSION['success_message'] = "Booking has been made successfully!";
-} else {
-    // If user is not logged in, set error message
-    $_SESSION['error_message'] = "You need to be logged in to make a booking.";
-}
+       
+        $mail->isHTML(true);
+        $mail->Subject = 'Booking Confirmation';
+        $mail->Body    = "
+            <html>
+            <head>
+                <title>Booking Confirmation</title>
+            </head>
+            <body>
+                <h2>Booking Confirmation</h2>
+                <p>Dear $name,</p>
+                <p>Thank you for your booking. Here are your booking details:</p>
+                <p><strong>Date:</strong> $date</p>
+                <p><strong>Time:</strong> $time</p>
+                <p>We look forward to seeing you!</p>
+                <p>Best regards,</p>
+                <p>Real Estate Property Team</p>
+            </body>
+            </html>
+        ";
+
+        $mail->send();
+        echo 'Message has been sent';
+    } catch (Exception $e) {
+        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    }
 }
 
-// Reset error message if form is not submitted
+
+if (isset($_POST['submit_booking'])) {
+    if (isset($_SESSION['login']) && $_SESSION['login'] == 'true') {
+      
+        $_SESSION['booking'] = array(
+            'name' => $_POST['name'],
+            'email' => $_POST['email'],
+            'date' => $_POST['date'],
+            'time' => $_POST['time'],
+        );
+
+       
+        sendConfirmationEmail($_POST['email'], $_POST['name'], $_POST['date'], $_POST['time']);
+
+        
+        $_SESSION['success_message'] = "Booking has been made successfully! A confirmation email has been sent to you.";
+    } else {
+       
+        $_SESSION['error_message'] = "You need to be logged in to make a booking.";
+    }
+}
+
+
 if (!isset($_POST['submit_booking'])) {
-unset($_SESSION['error_message']);
+    unset($_SESSION['error_message']);
 }
-// If clear booking action is triggered
+
+
 if (isset($_GET['action']) && $_GET['action'] == 'clear_booking') {
-    // Remove booking data from session
+    
     unset($_SESSION['booking']);
 
-    // Set success message in session
+   
     $_SESSION['success_message'] = "Booking data has been cleared successfully!";
 
-    // Redirect back to the initial page
+   
     header("Location: {$_SERVER['PHP_SELF']}");
     exit;
 }
