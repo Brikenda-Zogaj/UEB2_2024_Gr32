@@ -208,18 +208,18 @@ displayVisitorCount();
 <div class="row py-5 g-3">
 <div class="col-md-6 first_col">
   <h1 class="text-center mt-3">Contact Us</h1>
-<form class="p-4 mt-5" id="myForm" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+<form class="p-4 mt-5" id="myForm" method="post" action="email.php">
 
-  <div class="mb-3">
-    <label for="name" class="form-label" >Enter your name</label>
-    <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" value="" >
-    <small class="error"><?php echo $errors['name'];?></small>
-  </div>
   <div class="mb-3">
     <label for="email" class="form-label">Email address:</label>
-    <input type="text" name="email" class="form-control" id="email" placeholder="Your email" value="" >
+    <input type="email" name="email" class="form-control" id="email" placeholder="Your email" value="" >
     <small class="error"><?php echo $errors['email'];?></small>
 
+  </div>
+  <div class="mb-3">
+    <label for="name" class="form-label" >Subject:</label>
+    <input type="text" name="subject" class="form-control" id="subject" placeholder="Subject" value="" >
+    <small class="error"><?php echo $errors['name'];?></small>
   </div>
   <div class="mb-3">
     <label for="message" class="form-label">Enter any message</label>
@@ -227,9 +227,7 @@ displayVisitorCount();
     <small class="error"><?php echo $errors['message'];?></small>
   </div>
   <div class="mb-3">
-    <input type="submit" name="submit" value="Send message" id="send_but">
-    <p id="success"><?php echo $success; ?></p>
-
+   <button type="submit" name="submit">Send message</button>
   </div>
 </form>
 </div>
