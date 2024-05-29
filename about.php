@@ -1,4 +1,23 @@
 <?php
+include 'db.php';
+
+// Për të zgjedhur të dhënat nga tabela dhe t'i ruani ato në një array
+$sql_select = "SELECT * FROM ourTeam";
+$result = $conn->query($sql_select);
+
+if ($result->num_rows > 0) {
+    // Ruajmë të dhënat në një array
+    $ourTeamData = array();
+    while ($row = $result->fetch_assoc()) {
+        $ourTeamData[] = $row;
+    }
+
+    // Tani mund të përpunoni të dhënat në $ourTeamData sipas nevojës
+    // Për shembull, mund të printoni ato ose t'i përdorni për të ndërtuar një tabelë në HTML
+} else {
+    echo "Nuk ka rreshta të dhënash në tabelë.";
+}
+
 
 $backgroundColorClass = isset($_COOKIE['background_color']) && $_COOKIE['background_color'] === 'dark' ? 'dark-background' : 'light-background';
 
@@ -23,6 +42,32 @@ echo '<meta http-equiv="refresh" content="3600">';
 
       
        <link rel="icon" href="./Assets/logo55.png" type="image/x-icon">
+       <style>
+    .team-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    .team-table th,
+    .team-table td {
+        border: 1px solid #dddddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    .team-table th {
+        background-color: #f2f2f2;
+    }
+
+    .team-table tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .team-table tr:hover {
+        background-color: #f2f2f2;
+    }
+</style>
        <style>
           body {
             margin: 0;
@@ -249,49 +294,74 @@ echo '<meta http-equiv="refresh" content="3600">';
 
 
             <div class="teams-container">
-              <h2 class="teams-title">Meet Our Excellent Team</h2>
-              <div class="teams">
-                  <div class="team-card">
-                      <img src="./Assets/T2.jpg" alt="Jennifer Lawrence" class="agent-image">
-                      <div class="team-info">
-                          <h3>Brikenda Zogaj</h3>
-                          <p>Ceo</p>
-                          <div class="social-links">
+    <h2 class="teams-title">Meet Our Excellent Team</h2>
+    <div class="teams">
+        <div class="team-card">
+            <img src="./Assets/T2.jpg" alt="Jennifer Lawrence" class="agent-image">
+            <div class="team-info">
+                <h3>Brikenda Zogaj</h3>
+                <p>Ceo</p>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/feed/"><img src="./Assets/linkedin.webp" alt="LinkedIn"></a>
+                    <a href="your-github-url"><img src="./Assets/git.webp" alt="GitHub"></a>
+                    <a href="your-facebook-url"><img src="./Assets/fb.webp" alt="Facebook"></a>
+                </div>
+            </div>
+        </div>
+        <div class="team-card">
+            <img src="./Assets/T1.jpg" alt="Jennifer Lawrence" class="agent-image">
+            <div class="team-info">
+                <h3>Jennif Lawrence</h3>
+                <p>Manager</p>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/feed/"><img src="./Assets/linkedin.webp" alt="LinkedIn"></a>
+                    <a href="your-github-url"><img src="./Assets/git.webp" alt="GitHub"></a>
+                    <a href="your-facebook-url"><img src="./Assets/fb.webp" alt="Facebook"></a>
+                </div>
+            </div>
+        </div>
+        <div class="team-card">
+            <img src="./Assets/T3.jpg" alt="Jennifer Lawrence" class="agent-image">
+            <div class="team-info">
+                <h3>Gresa Syze</h3>
+                <p>Senior</p>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/feed/"><img src="./Assets/linkedin.webp" alt="LinkedIn"></a>
+                    <a href="https://github.com/Brikenda-Zogaj/UEB20_23_Gr7"><img src="./Assets/git.webp" alt="GitHub"></a>
+                    <a href="mhttps://www.facebook.com/"><img src="./Assets/fb.webp" alt="Facebook"></a>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                              <a href="https://www.linkedin.com/feed/"><img src="./Assets/linkedin.webp" alt="LinkedIn"></a>
-                              <a href="your-github-url"><img src="./Assets/git.webp" alt="GitHub"></a>
-                              <a href="your-facebook-url"><img src="./Assets/fb.webp" alt="Facebook"></a>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="team-card">
-                     <img src="./Assets/T1.jpg" alt="Jennifer Lawrence" class="agent-image">
-                     <div class="team-info">
-                         <h3>Jennif Lawrence</h3>
-                         <p>Manager</p>
-                         <div class="social-links">
+    <table class="team-table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Position</th>
+            <th>Email</th>
+            <th>Number</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($ourTeamData as $member): ?>
+        <tr>
+            <td><?php echo $member['id']; ?></td>
+            <td><?php echo $member['first_name']; ?></td>
+            <td><?php echo $member['last_name']; ?></td>
+            <td><?php echo $member['position']; ?></td>
+            <td><?php echo $member['email']; ?></td>
+            <td><?php echo $member['number']; ?></td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
 
-                             <a href="https://www.linkedin.com/feed/"><img src="./Assets/linkedin.webp" alt="LinkedIn"></a>
-                             <a href="your-github-url"><img src="./Assets/git.webp" alt="GitHub"></a>
-                             <a href="your-facebook-url"><img src="./Assets/fb.webp" alt="Facebook"></a>
-                         </div>
-                     </div>
-                 </div>
-                 <div class="team-card">
-                     <img src="./Assets/T3.jpg" alt="Jennifer Lawrence" class="agent-image">
-                     <div class="team-info">
-                         <h3>Gresa Syze</h3>
-                         <p>Senior</p>
-                         <div class="social-links">
-         
-                             <a href="https://www.linkedin.com/feed/"><img src="./Assets/linkedin.webp" alt="LinkedIn"></a>
-                             <a href="https://github.com/Brikenda-Zogaj/UEB20_23_Gr7"><img src="./Assets/git.webp" alt="GitHub"></a>
-                             <a href="mhttps://www.facebook.com/"><img src="./Assets/fb.webp" alt="Facebook"></a>
-                         </div>
-                     </div>
-                 </div>
-              </div>
-          </div>
+</div>
+
+          
           
           
        

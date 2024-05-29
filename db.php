@@ -18,21 +18,34 @@ $sql = "CREATE TABLE IF NOT EXISTS ourTeam(
     email VARCHAR(50),
     number VARCHAR(10) NOT NULL
 )";
+
 if ($conn->query($sql) !== TRUE) {
     echo "Gabim gjatë krijimit të tabelës: " . $conn->error;
 }
+
 function insertUser($conn, $first_name, $last_name, $position, $email, $number) {
+    // Kontrolloni nëse rreshti ekziston në bazën e të dhënave
     $sql_check = "SELECT * FROM ourTeam WHERE first_name = ?";
     $stmt_check = $conn->prepare($sql_check);
     $stmt_check->bind_param("s", $first_name);
     $stmt_check->execute();
     $result = $stmt_check->get_result();
+    
+    if ($result->num_rows > 0) {
+        
+        return;
+    }
+
+    // Nëse rreshti nuk ekziston, atëherë shtoni atë në tabelë
     $sql = "INSERT INTO ourTeam (first_name, last_name, position, email, number) VALUES (?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
+
     $stmt->bind_param("sssss", $first_name, $last_name, $position, $email, $number);
     if ($stmt->execute() !== TRUE) {
         echo "Gabim gjatë insertimit: " . $stmt->error;
-    }}
+    } 
+}
+
 $ourTeam = [
     ['Syzana', 'Kryeziu', 'Agjente e pronave', 'kryeziusyzana@gmail.com', '049381309'],
     ['Gresa', 'Halili', 'Menaxhere e shitjeve', 'hresahalili@gmail.com', '049123321'],
@@ -40,6 +53,7 @@ $ourTeam = [
     ['Blerina', 'Balaj', 'Menaxhere e marketingut', 'blerinabalaja@gmail.com', '049238738'],
     ['Anna', 'Gashi', 'unemployed', 'annagashi@gmail.com', '049322455']
 ];
+
 foreach ($ourTeam as $teamMember) {
     insertUser($conn, $teamMember[0], $teamMember[1], $teamMember[2], $teamMember[3], $teamMember[4]);
 }
@@ -50,7 +64,8 @@ function updateEmail($conn, $email, $first_name) {
     $stmt->bind_param("ss", $email, $first_name);
     if ($stmt->execute() !== TRUE) {
         echo "Gabim gjatë përditësimit: " . $stmt->error;
-    } }
+    } 
+}
 
 $email = 'syzanakryeziu@gmail.com';
 $first_name = 'Syzana';
