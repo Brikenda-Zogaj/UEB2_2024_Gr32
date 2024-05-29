@@ -11,9 +11,12 @@
             font-family: "Rubik", sans-serif;
             margin: 0;
             padding: 0;
+            background-image:url('Assets/faq-frequently-asked-question-concept-with-team-people-free-vector.jpg') ;
+           
         }
         .box {
-            width: 500px;
+            width: 600px;
+            
             margin: 100px auto;
             background: #fff;
             border-radius: 7px;
@@ -48,26 +51,17 @@
         .text {
             margin: 0;
         }
-        .image-container {
-            flex: 1;
-            width: 100%;
-        }
-        .image-container img {
-            max-width: 500px;
-            height: 300px;
-            border-radius: 7px;
-        }
+      
     </style>
 </head>
 <body>
-<header>
-    <div class="image-container">
-        <img src="./Assets/faq.jpeg" alt="Metropol Real Estate Image">
-    </div>
-</header>
+
+
 
 <div class="box">
+<?php include 'webAPI.php'; ?>
     <p class="heading">FAQs</p>
+   
     <div class="faqs">
         <?php
         class FAQException extends Exception {}
@@ -81,12 +75,12 @@
                 "What is the process for renting or buying a property through Metropol Real Estate?" => "The process for renting or buying a property involves several steps including property search, viewing, negotiation, contract signing, and payment of fees or deposits. Our team will guide you through each step and ensure a smooth transaction.",
             );
 
-            // Kontrollo nëse array është bosh
+            
             if (empty($faqs)) {
                 throw new FAQException("No FAQs available.");
             }
 
-            // Sortimi
+      
             ksort($faqs);
 
             foreach ($faqs as $question => $answer) {
@@ -106,5 +100,9 @@
     </div>
 </div>
 
+
+
 </body>
+
 </html>
+
