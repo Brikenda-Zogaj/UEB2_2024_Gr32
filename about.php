@@ -28,9 +28,22 @@ setcookie('other_cookie', 'value', time() + 3);
 
 echo '<meta http-equiv="refresh" content="3600">';
 ?>
+<?php
+session_start();
+include_once 'funksionet.php'; 
 
 
+$emriSkedarit = "numri_vizitoreve.txt";
 
+
+$numriVizitoreve = lexoSkedarin($emriSkedarit);
+
+
+$numriVizitoreve++;
+
+
+shkruajNeSkedar($emriSkedarit, $numriVizitoreve);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
