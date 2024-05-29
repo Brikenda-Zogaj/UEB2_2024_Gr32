@@ -1,3 +1,19 @@
+<?php
+session_start();
+include_once 'funksionet.php'; 
+
+
+$emriSkedarit = "numri_vizitoreve.txt";
+
+
+$numriVizitoreve = lexoSkedarin($emriSkedarit);
+
+
+$numriVizitoreve++;
+
+
+shkruajNeSkedar($emriSkedarit, $numriVizitoreve);
+?>
 <?php 
 session_start();
 function log_search($searchTerm) {

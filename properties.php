@@ -1,6 +1,21 @@
 <?php 
 session_start();?>
+<?php
+session_start();
+include_once 'funksionet.php'; 
 
+
+$emriSkedarit = "numri_vizitoreve.txt";
+
+
+$numriVizitoreve = lexoSkedarin($emriSkedarit);
+
+
+$numriVizitoreve++;
+
+
+shkruajNeSkedar($emriSkedarit, $numriVizitoreve);
+?>
 <?php
   // Define constants
   define("RIO_BEDROOMS", 3);
